@@ -2334,7 +2334,10 @@ describe("Game", function () {
                 spyOn(emitter, 'emit').andCallThrough();
                 expect(game.act(player2, { "name": "special_one_quiet_night" })).toBeTruthy();
                 expectDiscard(player2, { "type": "special", "special": "special_one_quiet_night" });
-                expect(emitter.emit.callCount).toBe(1);
+                expect(emitter.emit).toHaveBeenCalledWith({
+                    "event_type": "one_quiet_night"
+                });
+                expect(emitter.emit.callCount).toBe(2);
                 expect(game.situation.quiet_night).toBeTruthy();
                 expectReplayMatch(game);
             });
@@ -2342,7 +2345,7 @@ describe("Game", function () {
             it("refuses to skip the infection phase without the card", function () {
                 gameSetup();
                 spyOn(emitter, 'emit').andCallThrough();
-                expect(game.act(player1, { "name": "special_one_quiet_night", "location": "Hong Kong" })).toBeFalsy();
+                expect(game.act(player1, { "name": "special_one_quiet_night"})).toBeFalsy();
                 expect(emitter.emit).not.toHaveBeenCalled();
                 expect(game.situation.quiet_night).toBeFalsy();
                 expectReplayMatch(game);
@@ -2354,9 +2357,9 @@ describe("Game", function () {
                 skipTurnActions(player1);
                 expect(game.act(player1, { "name": "draw_player_card" })).toBeTruthy();
                 spyOn(emitter, 'emit').andCallThrough();
-                expect(game.act(player2, { "name": "special_one_quiet_night", "location": "Baghdad" })).toBeFalsy();
+                expect(game.act(player2, { "name": "special_one_quiet_night" })).toBeFalsy();
                 expect(emitter.emit).not.toHaveBeenCalled();
-                expect(game.situation.quiet_night).toBeTruthy();
+                expect(game.situation.quiet_night).toBeFalsy();
                 expectReplayMatch(game);
             });
         }); // special_one_quiet_night

@@ -140,6 +140,12 @@ var Replay = function() {
     }
   ]
 
+  this.one_quiet_night = [
+    function(e) {
+      situation.quiet_night = true;
+    }
+  ]
+
   this.receive = function(e) {
     _.each(this[e.event_type], function(f) { f(e) });
   }
