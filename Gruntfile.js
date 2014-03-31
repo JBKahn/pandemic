@@ -12,9 +12,6 @@ module.exports = function (grunt) {
 
         coffee: {
             compile: {
-                options: {
-                    sourceMap: true
-                },
                 files: {
                     'game.js': 'coffee/game.coffee',
                 }

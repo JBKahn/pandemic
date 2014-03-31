@@ -932,5 +932,3 @@
   module.exports = Game;
 
 }).call(this);
-
-//# sourceMappingURL=game.js.map
