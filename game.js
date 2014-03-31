@@ -558,6 +558,16 @@ function Game(eventSink, randy) {
                 return false;
             }
             break;
+        case "special_one_quiet_night":
+            if (this.situation.state.name === "epidemic") {
+                return false;
+            }
+            thePlayer = this.findPlayer(player);
+
+            if (!this.getCard(thePlayer.hand, 'special', action.name)) {
+                return false;
+            }
+            break;
         case "draw_player_card":
             if (this.situation.state.name !== (action.name + 's')) {
                 return false;
@@ -760,7 +770,6 @@ function Game(eventSink, randy) {
     };
 
     this.performSpecialAction = function (playerSelected, playerSelectedObject, card, player, action) {
-        var thePlayer = this.findPlayer(player);
         if (action.name === "special_airlift") {
             this.discardPlayerCard(player, card);
             playerSelectedObject.location = action.location;
@@ -779,6 +788,9 @@ function Game(eventSink, randy) {
             this.situation.research_centers_available = this.situation.research_centers_available - 1;
         } else if (action.name === "special_one_quiet_night") {
             this.discardPlayerCard(player, card);
+            eventSink.emit({
+                "event_type": "one_quiet_night"
+            });
             this.situation.quiet_night = true;
         } else if (action.name === "special_resilient_population") {
             this.discardPlayerCard(player, card);
