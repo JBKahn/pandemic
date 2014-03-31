@@ -2,6 +2,9 @@
   "name": "pandemic",
   "version": "0.1.0",
   "dependencies": {
+    "grunt": "0.4.2",
+    "grunt-contrib-watch": "0.5.3",
+    "grunt-contrib-coffee": "0.10.1",
     "express": "3.x",
     "socket.io": "*",
     "cookie": "*",
